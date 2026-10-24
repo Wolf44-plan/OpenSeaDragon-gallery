@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Тест на увеличението</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/openseadragon@4.1.1/build/openseadragon/openseadragon.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      background: #171717;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      padding: 12px 16px;
+      background: #252525;
+    }
+
+    #viewer {
+      width: 100%;
+      height: calc(100vh - 48px);
+      background: #171717;
+    }
+  </style>
+</head>
+<body>
+  <header>Тестова галерия с плочки</header>
+  <div id="viewer"></div>
+
+  <script>
+    const viewer = OpenSeadragon({
+      id: "viewer",
+      prefixUrl:
+        "https://cdn.jsdelivr.net/npm/openseadragon@4.1.1/build/openseadragon/images/",
+      showNavigator: false,
+      showZoomControl: true,
+      showHomeControl: true,
+      visibilityRatio: 1,
+      maxZoomLevel: 8
+    });
+
+    viewer.addHandler("open-failed", function (event) {
+      alert("Грешка при зареждането: " + event.message);
+    });
+
+    
+viewer.open({
+  width: 5880,
+  height: 4207,
+  tileSize: 256,
+  tileOverlap: 0,
+
+  minLevel: 0,
+  maxLevel: 13,
+
+  getTileUrl: function (level, x, y) {
+    return "map_files/" + level + "/" + x + "_" + y + ".jpg";
+  }
+});
+  </script>
+</body>
+</html>
